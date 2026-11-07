@@ -39,18 +39,18 @@ def set_device_ip(ip_str):
     DEVICE_IP = ip_str
 
 SYSTEMS_META = [
-    ("arcade", "FBNeo - Arcade Games.lpl", "FBNeo - Arcade Games", "fbneo"),
-    ("snes", "Nintendo - Super Nintendo Entertainment System.lpl", "Nintendo - Super Nintendo Entertainment System", "snes9x"),
-    ("nes", "Nintendo - Nintendo Entertainment System.lpl", "Nintendo - Nintendo Entertainment System", "fceumm"),
-    ("megadrive", "Sega - Mega Drive - Genesis.lpl", "Sega - Mega Drive - Genesis", "genesis_plus_gx"),
-    ("gba", "Nintendo - Game Boy Advance.lpl", "Nintendo - Game Boy Advance", "mgba"),
-    ("gb", "Nintendo - Game Boy.lpl", "Nintendo - Game Boy", "gambatte"),
-    ("gbc", "Nintendo - Game Boy Color.lpl", "Nintendo - Game Boy Color", "gambatte"),
-    ("neogeo", "SNK - Neo Geo.lpl", "SNK - Neo Geo", "fbneo"),
-    ("pce", "NEC - PC Engine - TurboGrafx 16.lpl", "NEC - PC Engine - TurboGrafx 16", "mednafen_pce_fast"),
-    ("atari", "Atari - 2600.lpl", "Atari - 2600", "stella"),
-    ("mastersys", "Sega - Master System - Mark III.lpl", "Sega - Master System - Mark III", "genesis_plus_gx"),
-    ("gamegear", "Sega - Game Gear.lpl", "Sega - Game Gear", "genesis_plus_gx")
+    ("arcade", "FBNeo - Arcade Games.lpl", "FBNeo - Arcade Games", "fbneo", "Arcade (FinalBurn Neo)"),
+    ("snes", "Nintendo - Super Nintendo Entertainment System.lpl", "Nintendo - Super Nintendo Entertainment System", "snes9x", "Nintendo - SNES / SFC (Snes9x)"),
+    ("nes", "Nintendo - Nintendo Entertainment System.lpl", "Nintendo - Nintendo Entertainment System", "fceumm", "Nintendo - NES / Famicom (FCEUmm)"),
+    ("megadrive", "Sega - Mega Drive - Genesis.lpl", "Sega - Mega Drive - Genesis", "genesis_plus_gx", "Sega - MS/MD/CD/32X (Genesis Plus GX)"),
+    ("gba", "Nintendo - Game Boy Advance.lpl", "Nintendo - Game Boy Advance", "mgba", "Nintendo - Game Boy Advance (mGBA)"),
+    ("gb", "Nintendo - Game Boy.lpl", "Nintendo - Game Boy", "gambatte", "Nintendo - Game Boy / Color (Gambatte)"),
+    ("gbc", "Nintendo - Game Boy Color.lpl", "Nintendo - Game Boy Color", "gambatte", "Nintendo - Game Boy / Color (Gambatte)"),
+    ("neogeo", "SNK - Neo Geo.lpl", "SNK - Neo Geo", "fbneo", "Arcade (FinalBurn Neo)"),
+    ("pce", "NEC - PC Engine - TurboGrafx 16.lpl", "NEC - PC Engine - TurboGrafx 16", "mednafen_pce_fast", "NEC - PC Engine / CD (Beetle PCE FAST)"),
+    ("atari", "Atari - 2600.lpl", "Atari - 2600", "stella", "Atari - 2600 (Stella)"),
+    ("mastersys", "Sega - Master System - Mark III.lpl", "Sega - Master System - Mark III", "genesis_plus_gx", "Sega - MS/MD/CD/32X (Genesis Plus GX)"),
+    ("gamegear", "Sega - Game Gear.lpl", "Sega - Game Gear", "genesis_plus_gx", "Sega - MS/MD/CD/32X (Genesis Plus GX)")
 ]
 
 def ensure_connected():
@@ -183,7 +183,7 @@ def make_all_playlists():
     run_adb(["shell", "mkdir", "-p", "/sdcard/RetroArch/playlists/"])
     
     total = 0
-    for subfolder, lpl_name, db_name, core_id in SYSTEMS_META:
+    for subfolder, lpl_name, db_name, core_id, core_full_name in SYSTEMS_META:
         raw_files = run_adb(f"shell ls /sdcard/ROMs/{subfolder}").splitlines()
         files = [f.strip() for f in raw_files if f.strip().endswith((".zip", ".7z", ".nes", ".sfc", ".md", ".bin", ".pce"))]
         
@@ -199,15 +199,15 @@ def make_all_playlists():
                 "path": f"/sdcard/ROMs/{subfolder}/{f}",
                 "label": display_name,
                 "core_path": "DETECT",
-                "core_name": "DETECT",
+                "core_name": core_full_name,
                 "crc32": "DETECT",
                 "db_name": lpl_name
             })
             
         playlist = {
             "version": "1.5",
-            "default_core_path": "",
-            "default_core_name": "",
+            "default_core_path": "DETECT",
+            "default_core_name": core_full_name,
             "label_display_mode": 0,
             "right_thumbnail_mode": 1,
             "left_thumbnail_mode": 0,
