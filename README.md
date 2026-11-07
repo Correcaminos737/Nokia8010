@@ -68,7 +68,7 @@ python tools/nokia_helper.py all
 
 1. **Clonar este repositorio:**
    ```bash
-   git clone <URL_DEL_REPOSITORIO>
+   git clone https://github.com/Correcaminos737/Nokia8010.git
    cd Nokia8010
    ```
 2. **Descargar el pack de ROMs (SwissTransfer):**
