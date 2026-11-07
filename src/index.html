@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nokia 8010 Gaming Hub</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="tv-container">
+    <header class="header">
+      <div class="header-left">
+        <h1 class="logo">NOKIA 8010 <span>TV HUB</span></h1>
+        <p class="subtitle">Android 14 (API 34) &bull; Gestor de Apps, USB y Emuladores</p>
+      </div>
+      <div class="header-right">
+        <div id="storage-perm-badge" class="badge badge-warning">Almacenamiento: Comprobando...</div>
+      </div>
+    </header>
+
+    <main class="grid-layout">
+      <!-- Fila de Estado de Diagnóstico -->
+      <section class="card status-card" tabindex="1" id="card-kodi">
+        <div class="card-icon">📺</div>
+        <div class="card-content">
+          <h3>Kodi Media Center</h3>
+          <p id="kodi-status-text">Analizando paquetes del sistema...</p>
+          <span id="kodi-badge" class="badge badge-neutral">Comprobando</span>
+        </div>
+      </section>
+
+      <section class="card status-card" tabindex="2" id="card-usb">
+        <div class="card-icon">💾</div>
+        <div class="card-content">
+          <h3>Unidad USB Externa</h3>
+          <p id="usb-status-text">Escaneando /storage/...</p>
+          <div class="usb-details" id="usb-details">
+            <span id="usb-path">Ruta: --</span> &bull; <span id="usb-space">Libre: --</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fila de Acciones: RetroArch -->
+      <section class="card action-card" tabindex="3" id="card-retroarch">
+        <div class="card-header-action">
+          <div class="card-icon">🕹️</div>
+          <span id="retroarch-status-badge" class="badge badge-neutral">No instalado</span>
+        </div>
+        <h3>RetroArch (armeabi-v7a)</h3>
+        <p>Descarga la versión nativa de 32 bits a caché e inicia el instalador del sistema.</p>
+        
+        <div class="progress-container" id="retroarch-progress-container" style="display: none;">
+          <div class="progress-bar" id="retroarch-progress-bar"></div>
+          <span class="progress-text" id="retroarch-progress-text">Descargando...</span>
+        </div>
+
+        <div class="action-buttons">
+          <button class="tv-btn btn-primary" id="btn-install-retroarch" tabindex="4">
+            Descargar e Instalar APK
+          </button>
+          <button class="tv-btn btn-secondary" id="btn-launch-retroarch" tabindex="5" style="display: none;">
+            Iniciar RetroArch
+          </button>
+        </div>
+      </section>
+
+      <!-- Fila de Acciones: Descarga de ROMs Arcade a USB -->
+      <section class="card action-card" tabindex="6" id="card-roms">
+        <div class="card-header-action">
+          <div class="card-icon">👾</div>
+          <span id="roms-status-badge" class="badge badge-neutral">USB Listo</span>
+        </div>
+        <h3>Arcade ROMs (FBNeo / MAME)</h3>
+        <p>Descarga los archivos <code>.zip</code> intactos (sin descomprimir) directamente a tu pendrive USB.</p>
+
+        <!-- Selector de Juego Arcade -->
+        <div class="arcade-selector">
+          <label for="select-arcade-game" class="label-tv">Seleccionar Juego / BIOS:</label>
+          <select id="select-arcade-game" class="tv-select" tabindex="7">
+            <option value="neogeo">BIOS: Neo-Geo (neogeo.zip) - Requerido para juegos SNK</option>
+            <option value="bublbobl">Bubble Bobble (bublbobl.zip) - Taito (1986)</option>
+            <option value="sf2">Street Fighter II: World Warrior (sf2.zip) - Capcom CPS-1 (1991)</option>
+            <option value="custom">URL personalizada...</option>
+          </select>
+          <input type="text" id="custom-rom-url" class="tv-input" placeholder="https://tu-servidor.com/rom.zip" style="display: none;" tabindex="8" />
+        </div>
+
+        <div class="progress-container" id="roms-progress-container" style="display: none; margin-top: 15px;">
+          <div class="progress-bar" id="roms-progress-bar"></div>
+          <span class="progress-text" id="roms-progress-text">Descargando al pendrive...</span>
+        </div>
+
+        <div class="action-buttons" style="margin-top: 15px;">
+          <button class="tv-btn btn-success" id="btn-download-roms" tabindex="9">
+            Descargar .ZIP al Pendrive
+          </button>
+          <button class="tv-btn btn-primary" id="btn-launch-rom" tabindex="10" style="display: none;">
+            Lanzar en RetroArch
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Barra de Notificaciones y Logs en TV -->
+    <footer class="footer-log">
+      <div class="log-label">ESTADO:</div>
+      <div class="log-message" id="log-message">Sistema inicializado. Conexión nativa lista.</div>
+    </footer>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

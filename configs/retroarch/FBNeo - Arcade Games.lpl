@@ -1,0 +1,604 @@
+{
+  "version": "1.5",
+  "default_core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+  "default_core_name": "Arcade (FinalBurn Neo)",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "thumbnail_match_mode": 0,
+  "sort_mode": 0,
+  "items": [
+    {
+      "path": "/sdcard/ROMs/arcade/1941.zip",
+      "label": "1941: Counter Attack",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/1941j.zip",
+      "label": "1941J",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/1942.zip",
+      "label": "1942",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/1943.zip",
+      "label": "1943: The Battle of Midway",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/19xx.zip",
+      "label": "19XX: The War Against Destiny",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/3wonders.zip",
+      "label": "Three Wonders (Wonder 3)",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/altbeast.zip",
+      "label": "Altered Beast",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/area88.zip",
+      "label": "Area 88 (U.N. Squadron)",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/bublbobl.zip",
+      "label": "Bubble Bobble",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/captcomj.zip",
+      "label": "CAPTCOMJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/captcomm.zip",
+      "label": "Captain Commando",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/cawing.zip",
+      "label": "Carrier Air Wing",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/cawingj.zip",
+      "label": "CAWINGJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/chikij.zip",
+      "label": "CHIKIJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/cworld2j.zip",
+      "label": "CWORLD2J",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/dino.zip",
+      "label": "Cadillacs and Dinosaurs",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/dwj.zip",
+      "label": "DWJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/ffight.zip",
+      "label": "Final Fight",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/ffightj.zip",
+      "label": "FFIGHTJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/forgottn.zip",
+      "label": "Forgotten Worlds",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/galaga.zip",
+      "label": "Galaga",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/ghouls.zip",
+      "label": "Ghouls'n Ghosts",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/gng.zip",
+      "label": "Ghosts'n Goblins",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/goldnaxe.zip",
+      "label": "Golden Axe",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/knights.zip",
+      "label": "Knights of the Round",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/knightsj.zip",
+      "label": "KNIGHTSJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/kod.zip",
+      "label": "The King of Dragons",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/kodj.zip",
+      "label": "KODJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/kof98.zip",
+      "label": "The King of Fighters '98",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/mbomber.zip",
+      "label": "Mega Man: The Power Battle",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/mbomberj.zip",
+      "label": "MBOMBERJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/megaman.zip",
+      "label": "Mega Man 2: The Power Fighters",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/mercs.zip",
+      "label": "Mercs",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/mercsj.zip",
+      "label": "MERCSJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/mslug.zip",
+      "label": "Metal Slug: Super Vehicle-001",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/mslug3.zip",
+      "label": "Metal Slug 3",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/mslugx.zip",
+      "label": "Metal Slug X",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/msword.zip",
+      "label": "Magic Sword",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/mtwins.zip",
+      "label": "MTWINS",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/nemo.zip",
+      "label": "Nemo",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/nemoj.zip",
+      "label": "NEMOJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/pang.zip",
+      "label": "Pang / Buster Bros",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/pang3.zip",
+      "label": "Pang! 3",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/pnickj.zip",
+      "label": "PNICKJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/punish.zip",
+      "label": "The Punisher",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/punisher.zip",
+      "label": "The Punisher (World)",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/punishj.zip",
+      "label": "PUNISHJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/qad.zip",
+      "label": "QAD",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/qadj.zip",
+      "label": "QADJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/qtono2.zip",
+      "label": "QTONO2",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/rockmanj.zip",
+      "label": "ROCKMANJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/sf2.zip",
+      "label": "Street Fighter II: The World Warrior",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/sf2ce.zip",
+      "label": "Street Fighter II': Champion Edition",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/sf2j.zip",
+      "label": "SF2J",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/sf2t.zip",
+      "label": "Street Fighter II' Turbo: Hyper Fighting",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/sfzch.zip",
+      "label": "Street Fighter Alpha (CPS Changer)",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/simpsons.zip",
+      "label": "The Simpsons (4 Players)",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/slammast.zip",
+      "label": "Saturday Night Slam Masters",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/snowbros.zip",
+      "label": "Snow Bros. - Nick & Tom",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/spang.zip",
+      "label": "Super Pang",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/ssriders.zip",
+      "label": "Sunset Riders (4 Players)",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/strider.zip",
+      "label": "Strider",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/striderj.zip",
+      "label": "STRIDERJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/tetris.zip",
+      "label": "Tetris (Sega)",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/tmnt.zip",
+      "label": "Teenage Mutant Ninja Turtles (4 Players)",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/tmnt2.zip",
+      "label": "TMNT: Turtles in Time (4 Players)",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/unsquad.zip",
+      "label": "U.N. Squadron",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/varth.zip",
+      "label": "Varth: Operation Operation",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/varthj.zip",
+      "label": "VARTHJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/willow.zip",
+      "label": "Willow",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/willowj.zip",
+      "label": "WILLOWJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/wof.zip",
+      "label": "Warriors of Fate",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/wofj.zip",
+      "label": "WOFJ",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    },
+    {
+      "path": "/sdcard/ROMs/arcade/wonder3.zip",
+      "label": "Wonder 3",
+      "core_path": "/data/user/0/com.retroarch/cores/fbneo_libretro_android.so",
+      "core_name": "Arcade (FinalBurn Neo)",
+      "crc32": "DETECT",
+      "db_name": "FBNeo - Arcade Games.lpl"
+    }
+  ]
+}

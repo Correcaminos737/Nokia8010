@@ -1,0 +1,9 @@
+{
+  "appId": "com.nokia8010.manager",
+  "appName": "Nokia 8010 Hub",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}

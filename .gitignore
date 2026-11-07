@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+android/app/build/
+android/app/intermediates/
+android/app/generated/
+android/.gradle/
+android/local.properties
+android/captures/
+.gradle/
+build/
+
+# ROMs, large archives and downloads (>100MB)
+JUEGOS/
+*.zip
+*.7z
+*.iso
+*.chd
+*.bin
+*.nes
+*.sfc
+*.smc
+*.gba
+*.gbc
+*.gb
+*.md
+*.gen
+*.pce
+
+# Local debug & logs
+*.log
+*.png
+*.jpg
+*.jpeg
+*.xml
+*.txt
+!README.md
+
+# Agent internal cache
+.agent/scratch/
+.agent/transcripts/
