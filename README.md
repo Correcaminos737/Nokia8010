@@ -62,6 +62,10 @@ python tools/nokia_helper.py all
 
 ## 👥 Guía Rápida para Amigos (Instalación Plug & Play)
 
+> [!TIP]
+> Si vas a realizar la instalación utilizando **Google Antigravity**, consulta la guía completa:
+> 👉 [docs/guia_antigravity_amigos.md](file:///s:/Proyectos/Nokia8010/docs/guia_antigravity_amigos.md). ¡Simplemente dile a tu asistente en el chat *"Ayúdame a configurar mi Nokia Box"* y él se encargará de todo!
+
 1. **Clonar este repositorio:**
    ```bash
    git clone <URL_DEL_REPOSITORIO>

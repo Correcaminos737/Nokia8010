@@ -14,8 +14,29 @@ import subprocess
 if sys.stdout and hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-ADB_PATH = os.path.expandvars(r"%LOCALAPPDATA%\Android\Sdk\platform-tools\adb.exe")
-DEVICE_IP = "192.168.1.128:5555"
+def get_adb_path():
+    which_adb = shutil.which("adb")
+    if which_adb and os.path.exists(which_adb):
+        return which_adb
+    sdk_adb = os.path.expandvars(r"%LOCALAPPDATA%\Android\Sdk\platform-tools\adb.exe")
+    if os.path.exists(sdk_adb):
+        return sdk_adb
+    for p in [r"C:\platform-tools\adb.exe", r"C:\Android\platform-tools\adb.exe"]:
+        if os.path.exists(p):
+            return p
+    return "adb"
+
+ADB_PATH = get_adb_path()
+DEVICE_IP = os.environ.get("NOKIA_IP", "192.168.1.128:5555")
+
+def set_device_ip(ip_str):
+    global DEVICE_IP
+    if not ip_str:
+        return
+    ip_str = ip_str.strip()
+    if ":" not in ip_str:
+        ip_str = f"{ip_str}:5555"
+    DEVICE_IP = ip_str
 
 SYSTEMS_META = [
     ("arcade", "FBNeo - Arcade Games.lpl", "FBNeo - Arcade Games", "fbneo"),
@@ -331,7 +352,10 @@ def sync_from_zip():
     print("[OK] ROM synchronization complete.")
 
 def print_help():
-    print("""Uso: python tools/nokia_helper.py <comando>
+    print("""Uso: python tools/nokia_helper.py [--ip <IP_NOKIA>] <comando>
+
+Opciones globales:
+  --ip <IP>            Especifica la IP de la Nokia Box (ej: 192.168.1.50).
 
 Comandos disponibles:
   status               Muestra estado de conexión y mandos en JSON conciso.
@@ -344,11 +368,18 @@ Comandos disponibles:
 """)
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
+    args = sys.argv[1:]
+    if "--ip" in args:
+        idx = args.index("--ip")
+        if idx + 1 < len(args):
+            set_device_ip(args[idx + 1])
+            del args[idx:idx + 2]
+
+    if not args:
         print_help()
         sys.exit(0)
 
-    cmd = sys.argv[1].lower()
+    cmd = args[0].lower()
     if cmd == "status":
         cmd_status()
     elif cmd == "pads":
@@ -360,8 +391,8 @@ if __name__ == "__main__":
     elif cmd == "sync":
         sync_from_zip()
     elif cmd == "check-roms":
-        if len(sys.argv) > 2:
-            check_roms(sys.argv[2])
+        if len(args) > 1:
+            check_roms(args[1])
         else:
             print("[ERROR] Debes especificar la ruta de la ROM o carpeta: python tools/nokia_helper.py check-roms <ruta>")
     elif cmd == "all":
