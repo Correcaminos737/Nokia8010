@@ -41,3 +41,6 @@ JUEGOS/
 # Agent internal cache
 .agent/scratch/
 .agent/transcripts/
+
+__pycache__/
+*.pyc
