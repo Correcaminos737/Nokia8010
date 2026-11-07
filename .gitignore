@@ -25,9 +25,16 @@ JUEGOS/
 *.gba
 *.gbc
 *.gb
-*.md
+# ROM extensions
+*.smd
 *.gen
 *.pce
+
+# Allow markdown documentation
+!*.md
+!README.md
+!docs/*.md
+!.agent/**/*.md
 
 # Local debug & logs
 *.log
