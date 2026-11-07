@@ -1,26 +1,54 @@
-import subprocess
-import re
+"""Nokia 8010 Android TV Retro Manager & Automation Suite
+Single entry-point CLI for controller configuration, playlist generation,
+anti-duplicate ROM checking, and RetroArch maintenance over ADB.
+"""
+
 import os
 import sys
+import re
+import json
 import zipfile
 import shutil
+import subprocess
+
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 ADB_PATH = os.path.expandvars(r"%LOCALAPPDATA%\Android\Sdk\platform-tools\adb.exe")
 DEVICE_IP = "192.168.1.128:5555"
 
+SYSTEMS_META = [
+    ("arcade", "FBNeo - Arcade Games.lpl", "FBNeo - Arcade Games", "fbneo"),
+    ("snes", "Nintendo - Super Nintendo Entertainment System.lpl", "Nintendo - Super Nintendo Entertainment System", "snes9x"),
+    ("nes", "Nintendo - Nintendo Entertainment System.lpl", "Nintendo - Nintendo Entertainment System", "fceumm"),
+    ("megadrive", "Sega - Mega Drive - Genesis.lpl", "Sega - Mega Drive - Genesis", "genesis_plus_gx"),
+    ("gba", "Nintendo - Game Boy Advance.lpl", "Nintendo - Game Boy Advance", "mgba"),
+    ("gb", "Nintendo - Game Boy.lpl", "Nintendo - Game Boy", "gambatte"),
+    ("gbc", "Nintendo - Game Boy Color.lpl", "Nintendo - Game Boy Color", "gambatte"),
+    ("neogeo", "SNK - Neo Geo.lpl", "SNK - Neo Geo", "fbneo"),
+    ("pce", "NEC - PC Engine - TurboGrafx 16.lpl", "NEC - PC Engine - TurboGrafx 16", "mednafen_pce_fast"),
+    ("atari", "Atari - 2600.lpl", "Atari - 2600", "stella"),
+    ("mastersys", "Sega - Master System - Mark III.lpl", "Sega - Master System - Mark III", "genesis_plus_gx"),
+    ("gamegear", "Sega - Game Gear.lpl", "Sega - Game Gear", "genesis_plus_gx")
+]
+
 def ensure_connected():
-    res = subprocess.run([ADB_PATH, "devices"], capture_output=True, text=True)
-    if "192.168.1.128:5555\tdevice" not in res.stdout:
-        subprocess.run([ADB_PATH, "connect", DEVICE_IP], capture_output=True, text=True)
+    try:
+        res = subprocess.run([ADB_PATH, "devices"], capture_output=True, text=True, timeout=5)
+        if f"{DEVICE_IP}\tdevice" not in res.stdout:
+            subprocess.run([ADB_PATH, "connect", DEVICE_IP], capture_output=True, text=True, timeout=5)
+    except Exception as e:
+        return False
+    return True
 
 def run_adb(cmd, capture=True):
     ensure_connected()
     if isinstance(cmd, list):
         full_cmd = [ADB_PATH, "-s", DEVICE_IP] + cmd
-        res = subprocess.run(full_cmd, capture_output=capture, text=True, encoding='utf-8', errors='ignore')
+        res = subprocess.run(full_cmd, capture_output=capture, text=True, encoding="utf-8", errors="ignore")
     else:
         full_cmd = f'"{ADB_PATH}" -s {DEVICE_IP} {cmd}'
-        res = subprocess.run(full_cmd, capture_output=capture, text=True, shell=True, encoding='utf-8', errors='ignore')
+        res = subprocess.run(full_cmd, capture_output=capture, text=True, shell=True, encoding="utf-8", errors="ignore")
     return res.stdout.strip() if capture else ""
 
 def get_gamepad_indices():
@@ -39,8 +67,25 @@ def get_gamepad_indices():
         gamepads.append(gamepads[0] + 1)
     return gamepads
 
+def cmd_status():
+    """Outputs compact JSON for token efficiency."""
+    conn = ensure_connected()
+    pads = get_gamepad_indices() if conn else []
+    status = {
+        "device": DEVICE_IP,
+        "connected": conn,
+        "gamepads": pads,
+        "player1": pads[0] if len(pads) > 0 else None,
+        "player2": pads[1] if len(pads) > 1 else None
+    }
+    print(json.dumps(status))
+
 def setup_dual_pads():
-    master_cfg = """# Clean Master RetroArch Config for Nokia 8010
+    pads = get_gamepad_indices()
+    p1 = str(pads[0])
+    p2 = str(pads[1])
+    
+    master_cfg = f"""# Clean Master RetroArch Config for Nokia 8010
 input_driver = "android"
 input_joypad_driver = "android"
 input_autodetect_enable = "true"
@@ -51,6 +96,10 @@ all_users_control_menu = "true"
 input_menu_toggle_gamepad_combo = "5"
 input_enable_hotkey_btn = "nul"
 input_menu_toggle_btn = "nul"
+
+# Map to physical USB Gamepad devices
+input_player1_joypad_index = "{p1}"
+input_player2_joypad_index = "{p2}"
 
 # Analog Stick to D-Pad mode (both work)
 input_player1_analog_dpad_mode = "1"
@@ -66,23 +115,157 @@ fbneo-diagnostic-input = "None"
     with open(master_path, "w", encoding="utf-8") as f:
         f.write(master_cfg)
 
-    # Push clean config to device
     run_adb(["push", master_path, "/sdcard/RetroArch/retroarch.cfg"])
-    print("[OK] Clean universal configuration deployed to RetroArch.")
+    print(f"[OK] Master config deployed (P1: {p1}, P2: {p2}, Hold START=Menu).")
 
-def get_existing_device_roms():
-    out = run_adb(["shell", "find", "/sdcard/ROMs/", "-type", "f"])
-    existing = set()
-    for line in out.splitlines():
-        line = line.strip()
-        if line:
-            parts = line.split("/")
-            if len(parts) >= 2:
-                # Store (subfolder, filename) in lowercase
-                existing.add((parts[-2].lower(), parts[-1].lower()))
-    return existing
+def deploy_remap():
+    rmp_content = """input_remap_port_p1 = "0"
+input_player1_btn_l = "2"
+input_remap_port_p2 = "1"
+input_player2_btn_l = "2"
+"""
+    base_dir = os.path.dirname(os.path.dirname(__file__))
+    remap_path = os.path.join(base_dir, "configs", "retroarch", "arcade_coin_lb.rmp")
+    os.makedirs(os.path.dirname(remap_path), exist_ok=True)
+    with open(remap_path, "w", encoding="utf-8") as f:
+        f.write(rmp_content)
 
-def sync_all_roms_and_bios():
+    cores = [
+        "FinalBurn Neo",
+        "FinalBurn_Neo",
+        "Arcade (FinalBurn Neo)",
+        "FB Alpha 2012",
+        "MAME 2003-Plus"
+    ]
+    ensure_connected()
+    for c in cores:
+        run_adb(["shell", f"mkdir -p '/sdcard/RetroArch/config/remaps/{c}'"])
+        run_adb(["push", remap_path, f"/sdcard/RetroArch/config/remaps/{c}/{c}.rmp"])
+
+    print("[OK] Arcade Remap deployed: LB (Left Bumper) -> Coin for 1P & 2P.")
+
+def make_all_playlists():
+    ensure_connected()
+    base_dir = os.path.dirname(os.path.dirname(__file__))
+    temp_dir = os.path.join(base_dir, "configs", "playlists")
+    os.makedirs(temp_dir, exist_ok=True)
+    
+    run_adb(["shell", "mkdir", "-p", "/sdcard/RetroArch/playlists/"])
+    
+    total = 0
+    for subfolder, lpl_name, db_name, core_id in SYSTEMS_META:
+        raw_files = run_adb(f"shell ls /sdcard/ROMs/{subfolder}").splitlines()
+        files = [f.strip() for f in raw_files if f.strip().endswith((".zip", ".7z", ".nes", ".sfc", ".md", ".bin", ".pce"))]
+        
+        items = []
+        for f in sorted(files):
+            display_name = os.path.splitext(f)[0]
+            items.append({
+                "path": f"/sdcard/ROMs/{subfolder}/{f}",
+                "label": display_name,
+                "core_path": "DETECT",
+                "core_name": "DETECT",
+                "crc32": "DETECT",
+                "db_name": lpl_name
+            })
+            
+        playlist = {
+            "version": "1.5",
+            "default_core_path": "",
+            "default_core_name": "",
+            "label_display_mode": 0,
+            "right_thumbnail_mode": 1,
+            "left_thumbnail_mode": 0,
+            "sort_mode": 0,
+            "items": items
+        }
+        
+        local_lpl = os.path.join(temp_dir, lpl_name)
+        with open(local_lpl, "w", encoding="utf-8") as out:
+            json.dump(playlist, out, indent=2, ensure_ascii=False)
+            
+        run_adb(["push", local_lpl, f"/sdcard/RetroArch/playlists/{lpl_name}"])
+        print(f"  + {lpl_name:<46}: {len(items):>4} items")
+        total += len(items)
+        
+    print(f"[OK] All playlists synced: {total} total titles.")
+
+def check_roms(incoming_path):
+    """Anti-duplication engine comparing new files against catalog_games.json."""
+    base_dir = os.path.dirname(os.path.dirname(__file__))
+    catalog_path = os.path.join(base_dir, "configs", "catalog_games.json")
+    if not os.path.exists(catalog_path):
+        print(f"[ERROR] Catalog not found at {catalog_path}")
+        return
+
+    with open(catalog_path, "r", encoding="utf-8") as f:
+        catalog = json.load(f)
+
+    existing_titles = set()
+    existing_files = set()
+    existing_crcs = set()
+
+    for sys_code, sys_data in catalog.get("systems", {}).items():
+        for g in sys_data.get("games", []):
+            existing_titles.add(g["title"].lower())
+            existing_files.add(g["filename"].lower())
+            if g.get("crc32"):
+                existing_crcs.add(g["crc32"].upper())
+
+    if not os.path.exists(incoming_path):
+        print(f"[ERROR] Target path does not exist: {incoming_path}")
+        return
+
+    duplicates = []
+    new_games = []
+
+    # If it's a zip file
+    if zipfile.is_zipfile(incoming_path):
+        with zipfile.ZipFile(incoming_path, "r") as z:
+            for info in z.infolist():
+                if info.filename.endswith("/") or info.filename.lower().startswith("bios/"):
+                    continue
+                fname = os.path.basename(info.filename)
+                title = os.path.splitext(fname)[0]
+                crc = f"{info.CRC:08X}"
+                
+                is_dup = (fname.lower() in existing_files) or (title.lower() in existing_titles) or (crc in existing_crcs)
+                if is_dup:
+                    duplicates.append(fname)
+                else:
+                    new_games.append(fname)
+    # If it's a folder
+    elif os.path.isdir(incoming_path):
+        for root, _, files in os.walk(incoming_path):
+            for f in files:
+                title = os.path.splitext(f)[0]
+                if f.lower() in existing_files or title.lower() in existing_titles:
+                    duplicates.append(f)
+                else:
+                    new_games.append(f)
+    else:
+        fname = os.path.basename(incoming_path)
+        title = os.path.splitext(fname)[0]
+        if fname.lower() in existing_files or title.lower() in existing_titles:
+            duplicates.append(fname)
+        else:
+            new_games.append(fname)
+
+    print("=" * 60)
+    print(" 🔍 REPORTE DE CONTROL DE DUPLICADOS")
+    print("=" * 60)
+    print(f"  Total juegos analizados: {len(duplicates) + len(new_games)}")
+    print(f"  ❌ Ya existentes (duplicados omitidos): {len(duplicates)}")
+    print(f"  ✨ Nuevos juegos únicos para agregar : {len(new_games)}")
+    if new_games:
+        print("\n  Primeros juegos nuevos detectados:")
+        for n in new_games[:10]:
+            print(f"    + {n}")
+        if len(new_games) > 10:
+            print(f"    ... y {len(new_games) - 10} más.")
+    print("=" * 60)
+
+def sync_from_zip():
     base_dir = os.path.dirname(os.path.dirname(__file__))
     zip_path = os.path.join(base_dir, "JUEGOS", "tiny-best-set-go-games.zip")
     if not os.path.exists(zip_path):
@@ -92,28 +275,23 @@ def sync_all_roms_and_bios():
     extract_temp = os.path.join(base_dir, "temp_extracted")
     os.makedirs(extract_temp, exist_ok=True)
 
-    print("[1/3] Reading existing ROMs on Nokia 8010 to avoid duplicates...")
-    existing_roms = get_existing_device_roms()
-    print(f"      Found {len(existing_roms)} existing items on device.")
-
     folder_map = {
-        "arcade": "arcade",
-        "sfc": "snes",
-        "fc": "nes",
-        "md": "megadrive",
-        "gba": "gba",
-        "gb": "gb",
-        "gbc": "gbc",
-        "neogeo": "neogeo",
-        "pce": "pce",
-        "atari": "atari",
-        "ms": "mastersys",
-        "gg": "gamegear",
-        "bios": "bios"
+        "arcade": "arcade", "sfc": "snes", "fc": "nes", "md": "megadrive",
+        "gba": "gba", "gb": "gb", "gbc": "gbc", "neogeo": "neogeo",
+        "pce": "pce", "atari": "atari", "ms": "mastersys", "gg": "gamegear", "bios": "bios"
     }
 
-    print("[2/3] Extracting and preparing ROMs by console...")
-    to_push_by_folder = {}
+    # Query device files to avoid re-uploading
+    out = run_adb(["shell", "find", "/sdcard/ROMs/", "-type", "f"])
+    existing = set()
+    for line in out.splitlines():
+        line = line.strip()
+        if line:
+            parts = line.split("/")
+            if len(parts) >= 2:
+                existing.add((parts[-2].lower(), parts[-1].lower()))
+
+    to_push = {}
     with zipfile.ZipFile(zip_path, "r") as z:
         for entry in z.namelist():
             if entry.endswith("/"):
@@ -123,95 +301,73 @@ def sync_all_roms_and_bios():
                 sys_key = parts[1].lower()
                 target_folder = folder_map.get(sys_key, sys_key)
                 fname = parts[-1]
-                
-                # Deduplication check:
-                if (target_folder, fname.lower()) in existing_roms:
+                if (target_folder, fname.lower()) in existing:
                     continue
-                
-                if target_folder not in to_push_by_folder:
-                    to_push_by_folder[target_folder] = []
-                to_push_by_folder[target_folder].append((entry, fname))
+                if target_folder not in to_push:
+                    to_push[target_folder] = []
+                to_push[target_folder].append((entry, fname))
 
-    total_new = sum(len(items) for items in to_push_by_folder.values())
-    print(f"      Total new items to transfer: {total_new} (skipping already existing duplicates).")
+    total_new = sum(len(items) for items in to_push.values())
+    print(f"[OK] Deduplication check: {total_new} new items to sync.")
 
-    print("[3/3] Transferring organized ROMs to Nokia 8010 internal storage...")
-    for target_folder, files in sorted(to_push_by_folder.items()):
+    for target_folder, files in sorted(to_push.items()):
         if not files:
             continue
-        
         local_staging = os.path.join(extract_temp, target_folder)
         os.makedirs(local_staging, exist_ok=True)
-        
-        # Extract batch locally
         with zipfile.ZipFile(zip_path, "r") as z:
             for zip_entry, fname in files:
                 dest = os.path.join(local_staging, fname)
                 with z.open(zip_entry) as src, open(dest, "wb") as dst:
                     shutil.copyfileobj(src, dst)
         
-        # Push batch to device via ADB
-        if target_folder == "bios":
-            remote_path = "/sdcard/RetroArch/system/"
-        else:
-            remote_path = f"/sdcard/ROMs/{target_folder}/"
-            run_adb(["shell", f"mkdir -p '{remote_path}'"])
-        
-        print(f"      Pushing {len(files)} files to {remote_path}...")
+        remote_path = f"/sdcard/ROMs/{target_folder}/"
+        run_adb(["shell", f"mkdir -p '{remote_path}'"])
+        print(f"  Transferring {len(files)} files to {remote_path}...")
         run_adb(["push", local_staging + "/.", remote_path])
-        
-        # Clean local staging to conserve PC disk
         shutil.rmtree(local_staging)
 
-    # Cleanup temp
     shutil.rmtree(extract_temp, ignore_errors=True)
-    print("[OK] Complete ROM set and BIOS deployed organized and deduplicated!")
+    print("[OK] ROM synchronization complete.")
 
-def clean_project_for_git():
-    base_dir = os.path.dirname(os.path.dirname(__file__))
-    print(f"[OK] Cleaning project at {base_dir} for Git...")
-    
-    # 1. Configs folder
-    configs_dir = os.path.join(base_dir, "configs", "retroarch")
-    os.makedirs(configs_dir, exist_ok=True)
-    
-    # Move loose configs
-    for f in os.listdir(base_dir):
-        if f.endswith((".cfg", ".rmp")) and os.path.isfile(os.path.join(base_dir, f)):
-            src = os.path.join(base_dir, f)
-            dst = os.path.join(configs_dir, f)
-            shutil.move(src, dst)
-            
-    # Remove obsolete test/debug files
-    obsolete_files = [
-        "CALLUS95.ZIP", "goldnaxe.zip", "test_dino.zip", "test_mslug.zip", "test_snowbros.zip",
-        "dumpsys_input.txt", "window_dump.xml", "current_screen.png", "menu_screen.png",
-        "quick_menu.png", "f1_screen.png", "menu_btn.png", "menu_check.png", "snowbros_test.png",
-        "snowbros_loaded.png", "snowbros_fixed.png", "snowbros_running.png", "user_screen.png",
-        "nav1.png", "nav2.png", "ready.png", "coin_err.png", "fresh_boot.png", "fresh_boot2.png"
-    ]
-    for obs in obsolete_files:
-        p = os.path.join(base_dir, obs)
-        if os.path.exists(p):
-            os.remove(p)
+def print_help():
+    print("""Uso: python tools/nokia_helper.py <comando>
 
-    # Remove temporary directories
-    for d in ["arcade_pack", "callus_extracted", "hf_arcade", "roms_arcade", "temp_extracted"]:
-        dp = os.path.join(base_dir, d)
-        if os.path.exists(dp):
-            shutil.rmtree(dp, ignore_errors=True)
-
-    print("[OK] Project cleaned and structured.")
+Comandos disponibles:
+  status               Muestra estado de conexión y mandos en JSON conciso.
+  pads                 Configura mandos USB (P1 & P2) y menú seguro (Hold START 2s).
+  remap                Despliega remap LB -> Coin para todos los núcleos Arcade.
+  playlists            Genera y sube las listas de reproducción a RetroArch.
+  sync                 Sincroniza y desduplica ROMs desde JUEGOS/ hacia la Nokia 8010.
+  check-roms <ruta>    Compara una carpeta o zip contra el catálogo para evitar duplicados.
+  all                  Ejecuta configuración completa (pads + remap + playlists).
+""")
 
 if __name__ == "__main__":
-    action = sys.argv[1] if len(sys.argv) > 1 else "pads"
-    if action == "pads":
+    if len(sys.argv) < 2:
+        print_help()
+        sys.exit(0)
+
+    cmd = sys.argv[1].lower()
+    if cmd == "status":
+        cmd_status()
+    elif cmd == "pads":
         setup_dual_pads()
-    elif action == "sync":
-        sync_all_roms_and_bios()
-    elif action == "clean":
-        clean_project_for_git()
-    elif action == "all":
-        clean_project_for_git()
+    elif cmd == "remap":
+        deploy_remap()
+    elif cmd == "playlists":
+        make_all_playlists()
+    elif cmd == "sync":
+        sync_from_zip()
+    elif cmd == "check-roms":
+        if len(sys.argv) > 2:
+            check_roms(sys.argv[2])
+        else:
+            print("[ERROR] Debes especificar la ruta de la ROM o carpeta: python tools/nokia_helper.py check-roms <ruta>")
+    elif cmd == "all":
         setup_dual_pads()
-        sync_all_roms_and_bios()
+        deploy_remap()
+        make_all_playlists()
+    else:
+        print(f"[ERROR] Comando desconocido: {cmd}")
+        print_help()
