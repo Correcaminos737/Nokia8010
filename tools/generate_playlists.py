@@ -50,7 +50,7 @@ def make_all_playlists():
             "default_core_path": "",
             "default_core_name": "",
             "label_display_mode": 0,
-            "right_thumbnail_mode": 0,
+            "right_thumbnail_mode": 1,
             "left_thumbnail_mode": 0,
             "sort_mode": 0,
             "items": items

@@ -40,60 +40,23 @@ def get_gamepad_indices():
     return gamepads
 
 def setup_dual_pads():
-    p1_idx, p2_idx = get_gamepad_indices()[:2]
-    print(f"[OK] Mapping gamepads -> Player 1 (Index #{p1_idx}), Player 2 (Index #{p2_idx})")
-
-    master_cfg = f"""# Master RetroArch Config for Nokia 8010 Dual Gamepads
+    master_cfg = """# Clean Master RetroArch Config for Nokia 8010
 input_driver = "android"
+input_joypad_driver = "android"
+input_autodetect_enable = "true"
+input_remap_binds_enable = "true"
 all_users_control_menu = "true"
+
+# Safe Hotkeys: Hold START 2 seconds to toggle menu (no coin conflict)
 input_menu_toggle_gamepad_combo = "5"
 input_enable_hotkey_btn = "nul"
 input_menu_toggle_btn = "nul"
 
-# Player 1
-input_player1_joypad_index = "{p1_idx}"
+# Analog Stick to D-Pad mode (both work)
 input_player1_analog_dpad_mode = "1"
-input_player1_b_btn = "0"
-input_player1_a_btn = "1"
-input_player1_y_btn = "2"
-input_player1_x_btn = "3"
-input_player1_l_btn = "4"
-input_player1_r_btn = "5"
-input_player1_select_btn = "6"
-input_player1_start_btn = "7"
-input_player1_l3_btn = "9"
-input_player1_r3_btn = "10"
-input_player1_up_btn = "h0up"
-input_player1_down_btn = "h0down"
-input_player1_left_btn = "h0left"
-input_player1_right_btn = "h0right"
-input_player1_l_x_plus_axis = "+0"
-input_player1_l_x_minus_axis = "-0"
-input_player1_l_y_plus_axis = "+1"
-input_player1_l_y_minus_axis = "-1"
-
-# Player 2
-input_player2_joypad_index = "{p2_idx}"
 input_player2_analog_dpad_mode = "1"
-input_player2_b_btn = "0"
-input_player2_a_btn = "1"
-input_player2_y_btn = "2"
-input_player2_x_btn = "3"
-input_player2_l_btn = "4"
-input_player2_r_btn = "5"
-input_player2_select_btn = "6"
-input_player2_start_btn = "7"
-input_player2_l3_btn = "9"
-input_player2_r3_btn = "10"
-input_player2_up_btn = "h0up"
-input_player2_down_btn = "h0down"
-input_player2_left_btn = "h0left"
-input_player2_right_btn = "h0right"
-input_player2_l_x_plus_axis = "+0"
-input_player2_l_x_minus_axis = "-0"
-input_player2_l_y_plus_axis = "+1"
-input_player2_l_y_minus_axis = "-1"
 
+# Disable diagnostic freeze in FBNeo
 fbneo-diagnostic-input = "None"
 """
     base_dir = os.path.dirname(os.path.dirname(__file__))
@@ -103,12 +66,9 @@ fbneo-diagnostic-input = "None"
     with open(master_path, "w", encoding="utf-8") as f:
         f.write(master_cfg)
 
-    # Push to device
+    # Push clean config to device
     run_adb(["push", master_path, "/sdcard/RetroArch/retroarch.cfg"])
-    for core in ["FinalBurn Neo", "FB Alpha 2012", "Snes9x", "Genesis Plus GX Wide"]:
-        run_adb(["shell", f"mkdir -p '/sdcard/RetroArch/config/{core}'"])
-        run_adb(["push", master_path, f"/sdcard/RetroArch/config/{core}/{core}.cfg"])
-    print("[OK] Universal 2-Player configuration deployed to RetroArch.")
+    print("[OK] Clean universal configuration deployed to RetroArch.")
 
 def get_existing_device_roms():
     out = run_adb(["shell", "find", "/sdcard/ROMs/", "-type", "f"])
