@@ -3,6 +3,7 @@ node_modules/
 
 # Build outputs
 dist/
+configs/playlists/
 android/app/build/
 android/app/intermediates/
 android/app/generated/

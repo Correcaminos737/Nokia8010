@@ -171,6 +171,15 @@ def make_all_playlists():
     temp_dir = os.path.join(base_dir, "configs", "playlists")
     os.makedirs(temp_dir, exist_ok=True)
     
+    arcade_titles = {}
+    titles_path = os.path.join(base_dir, "configs", "arcade_titles.json")
+    if os.path.exists(titles_path):
+        try:
+            with open(titles_path, "r", encoding="utf-8") as tf:
+                arcade_titles = json.load(tf)
+        except Exception:
+            arcade_titles = {}
+
     run_adb(["shell", "mkdir", "-p", "/sdcard/RetroArch/playlists/"])
     
     total = 0
@@ -180,7 +189,12 @@ def make_all_playlists():
         
         items = []
         for f in sorted(files):
-            display_name = os.path.splitext(f)[0]
+            stem = os.path.splitext(f)[0]
+            if subfolder in ("arcade", "neogeo") and stem.lower() in arcade_titles:
+                display_name = arcade_titles[stem.lower()]
+            else:
+                display_name = stem
+
             items.append({
                 "path": f"/sdcard/ROMs/{subfolder}/{f}",
                 "label": display_name,
